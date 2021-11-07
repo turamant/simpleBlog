@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+   <article class="content">
+       <p>Заголовок: {{ post.title }}</p>
+       <time>Дата: {{ post.created|date:"d M, y h:i" }}</time>
+       <a href="{% url 'detail' post.slug %}">Read more</a>
+   </article>
+{% endfor %}
+
+{% endblock %}

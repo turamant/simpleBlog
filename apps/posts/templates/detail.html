@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="content">
+    Категория: <a href="{% url 'category' post.category.slug %}">{{ post.category.title }}</a>
+   <p>Заголовок: {{ post.title }}</p>
+    <img src="{{ post.image.url }}" width="100" height="100">
+    <p>Text: {{ post.body }}</p>
+   <time>{{ post.created|date:"d M, y h:i" }}</time>
+
+
+   <h2>Comments</h2>
+   {% for comment in post.comments.all %}
+     <article>
+        <strong>{{ comment.name }} at {{ comment.date_added|date:"d M, y h:i" }} </strong></br>
+        <p>{{ comment.body }}</p>
+     </article>
+   {% endfor %}
+ <h2>Add comment</h2>
+<form method="post" action=".">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="Add comment">
+</form>
+</article>
+{% endblock %}
